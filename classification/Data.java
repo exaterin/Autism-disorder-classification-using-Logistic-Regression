@@ -8,13 +8,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class represents the dataset to be used for classification. 
+ */
 public class Data {
     public  String[][] strings;
     public double[][] transformedData;
     public int[] classLabels;
 
 
-    // Read data from a file and store it in a 2D array of strings
+    /**
+     * Reads data from a file and stores it in a 2D array of strings.
+     * @param filename  the name of the file to read the data from
+     */
     public void readData(String filename){
         List<String[]> data = new ArrayList<>();
         
@@ -35,7 +41,10 @@ public class Data {
         strings = data.toArray(new String[data.size()][]);
     }
 
-    // Remove given columns from the data
+    /**
+     * Removes given columns from the data.
+     * @param columns the indices of the columns to remove
+     */
     public void removeColumns(int[] columns){
         int numCols = strings[0].length;
         String[][] newData = new String[strings.length][numCols - columns.length];
@@ -59,7 +68,9 @@ public class Data {
         strings = newData;
     }
 
-    // Extract class lables from the last column of the data
+    /**
+     * Extracts class labels from the last column of the data.
+     */
     public void extractLabels(){
         int numRows = strings.length;
         int numCols = strings[0].length;
@@ -70,7 +81,10 @@ public class Data {
         classLabels = labels;
     }
 
-    // Transform given columns into cathegorical features
+    /**
+     * Transforms given columns into categorical features.
+     * @param columns the indices of the columns to transform
+     */
     public void transformColumns(int[] columns){
         int numRows = this.strings.length;
         int numCols = this.strings[0].length;
@@ -105,7 +119,9 @@ public class Data {
         strings = newData;
     }
 
-    // Convert the data from strings to doubles
+    /** 
+     * Convert the data from strings to doubles.
+     */
     public void convertToDouble(){
         int numRows = strings.length;
         int numCols = strings[0].length;

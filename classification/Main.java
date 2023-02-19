@@ -2,7 +2,10 @@ package classification;
 
 public class Main {
 
-
+    /**
+     * Train and return a logistic regression model
+     * @return the trained logistic regression model
+     */
     public static LogisticRegression trainClassifier(){
         Data trainData = new Data();
 
@@ -45,6 +48,10 @@ public class Main {
         return lr;
     }
 
+    /**
+     * Test the model and print the accuracy
+     * @param lr    the logistic regression model to test
+     */
     public static void testClassifier(LogisticRegression lr){
         Data testData = new Data();
 
@@ -55,15 +62,27 @@ public class Main {
         testData.transformColumns(new int[] {11, 12, 13});
         testData.convertToDouble();
 
-        int countCorrect = 0;
+        // Calculate false positive, false negative and true positive
+        int truePositive = 0;
+        int falsePositive = 0;
+        int falseNegative = 0;
         for(int i = 0; i < testData.transformedData.length; i++){
             int prediction = lr.predict(testData.transformedData[i]);
+
             if(prediction == testData.classLabels[i])
-                countCorrect++;
+                truePositive++;
+
+            if(prediction == 1 && testData.classLabels[i] == 0)
+                falsePositive++;
+            else if(prediction == 0 && testData.classLabels[i] == 1)
+                falseNegative++;
         }
 
-        // Print accuracy
-        System.out.println("Accuracy: " + (double)countCorrect / testData.transformedData.length * 100 + "%");
+        // Print accuracy, precision, recall and F1 score
+        System.out.println("Accuracy: " + (double) truePositive / testData.transformedData.length * 100 + "%");
+        System.out.println("Precision: " + (double) truePositive / (truePositive + falsePositive) * 100 + "%");
+        System.out.println("Recall: " + (double) truePositive / (truePositive + falseNegative) * 100 + "%");
+        System.out.println("F1 score: " + (double) 2 * truePositive / (2 * truePositive + falsePositive + falseNegative) * 100 + "%");
     }
 
 

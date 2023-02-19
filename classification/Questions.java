@@ -6,12 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * A class that represents a set of questions, performs Autismus test and collects answers.
+ */
 public class Questions {
     private ArrayList<String> questions;
     private String[] answers;
     public double[] answersDouble;
 
-    // Read questions from a file
+    /**
+     * Constructs a Questions object by reading the questions from a file.
+     * @param filename  the name of the file containing the questions
+     */
     public Questions(String filename) {
         questions = new ArrayList<String>();
 
@@ -28,7 +34,9 @@ public class Questions {
         answers = new String[questions.size()];
     }
 
-    // Ask questions and store answers
+    /**
+     * Asks the questions and stores the answers in the answers array.
+     */
     public void askQuestions() {
         System.out.println("Please answer the following questions: ");
         for (int i = 0; i < questions.size(); i++) {
@@ -42,7 +50,9 @@ public class Questions {
         }
     }
 
-    // Convert answers to doubles using information about test evaluation
+    /**
+     * Processes the answers and converts them to doubles using information about test evaluation.
+     */
     public void processAnswers(){
         answersDouble = new double[answers.length];
         for (int i = 0; i < answers.length; i++) {
@@ -60,8 +70,5 @@ public class Questions {
                 answersDouble[i] = Double.parseDouble(answers[i]);
             }
         }
-
     }
-
-    
 }
